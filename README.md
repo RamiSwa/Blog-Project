@@ -125,5 +125,7 @@ To create a new branch in Git and push it to your GitHub repository, follow thes
 
    This will upload your project to GitHub.
 
+![image](https://github.com/user-attachments/assets/835ace52-3ef4-4807-b759-43d47002f8ee)
+
 
 Now git checkout -b main-2
