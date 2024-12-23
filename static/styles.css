@@ -1,0 +1,22 @@
+.comment-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form h4 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.comment-form textarea {
+    resize: vertical; /* Allow users to resize vertically only */
+    min-height: 120px;
+}
+
+.comment-form button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px;
+}

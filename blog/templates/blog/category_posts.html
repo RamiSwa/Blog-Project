@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }} - Code Fusion Blog{% endblock %}
+
+{% block content %}
+<h1>Posts in {{ category.name }}</h1>
+<div class="row">
+    {% for post in posts %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No posts available in this category.</p>
+    {% endfor %}
+</div>
+{% endblock %}
