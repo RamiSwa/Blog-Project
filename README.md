@@ -129,4 +129,110 @@ To create a new branch in Git and push it to your GitHub repository, follow thes
 
 ![image](https://github.com/user-attachments/assets/25c6956b-40e1-4440-abc6-fa635b865693)
 
-Now git checkout -b main-2
+---------------------------------------------------------------------------------------------------
+
+
+---
+
+### **Blog Project - Summary of Steps**
+
+1. **Project Setup:**
+   - Created a Django project and app for the Blog.
+   - Installed and set up necessary dependencies, including `django-ckeditor` for rich text editing.
+
+2. **Models:**
+   - Defined models for **Post**, **Category**, **Tag**, and **Comment** in `models.py`.
+   - Implemented relationships between models: 
+     - **Many-to-many** between **Post** and **Category**/**Tag**.
+     - **Foreign key** relationships for **Post** and **Comment**.
+   - Added fields like `slug`, `image`, `status`, `likes`, and `dislikes` for Posts and Comments.
+   - Included methods for like/dislike counts and related posts.
+
+3. **Admin Configuration:**
+   - Customized the Django Admin interface to manage **Categories**, **Tags**, **Posts**, and **Comments**.
+   - Added actions in the Admin panel, such as approving comments and marking posts as published.
+   - Displayed like and dislike counts in the Post Admin.
+
+4. **Forms:**
+   - Created forms for **Post** creation and editing (PostForm) and for submitting **Comments** (CommentForm).
+   - Styled form fields using Bootstrap classes.
+
+5. **Views:**
+   - Created views to handle:
+     - Displaying the **home** page with paginated posts.
+     - **Post details** page with related posts, comments, and the ability to add comments.
+     - Filtering posts by **Category** and **Tag**.
+     - Liking and disliking posts via AJAX requests.
+   - Implemented functionality to increment post views and manage comment submissions.
+
+6. **URLs:**
+   - Defined URL routes to handle different pages, including post detail, category, tag, and like/dislike functionality.
+
+7. **AJAX (Like/Dislike):**
+   - Implemented AJAX-based views to toggle likes and dislikes on posts and update the count without reloading the page.
+
+
+8. **HTML Templates Overview:**
+
+8.1. **Base Template (`base.html`):**
+   - This is the foundational template that all other templates extend.
+   - It includes common elements such as:
+     - Bootstrap CSS and JS for styling and responsiveness.
+     - A navigation bar with links to home and other pages.
+     - A section for custom content using `{% block content %}`.
+     - Static and media file links for styling and image handling.
+   - External libraries like Bootstrap Icons and jQuery are included for additional functionality and UI.
+
+8.2. **Home Page Template (`home.html`):**
+   - Displays a list of **latest posts** in a grid layout.
+   - Each post shows the title, image, and a truncated version of its content.
+   - Includes pagination for navigating through posts.
+   - Provides a link to each post’s detail page.
+
+8.3. **Post Detail Page Template (`post_detail.html`):**
+   - Displays detailed content of a single post, including:
+     - Post title, image, publish date, and author.
+     - Full post content.
+     - Like and Dislike buttons with AJAX functionality to update the like/dislike count.
+   - A comment section where users can:
+     - See existing comments.
+     - Add new comments if they are authenticated.
+     - Wait for admin approval if the comment is pending.
+   - Displays **related posts** based on the current post’s category or tags.
+
+8.4. **Category Posts Page Template (`category_posts.html`):**
+   - Displays all posts in a specific category.
+   - Lists each post with its title and image, and a "Read More" button leading to the detailed post page.
+   - If no posts are available in the category, a message is displayed to inform the user.
+
+---
+
+### **Settings for Static and Media Files**
+
+- **Static Files Configuration:**
+  - `STATIC_URL`: URL path for serving static files.
+  - `STATICFILES_DIRS`: Points to the `static` directory for custom static files like CSS and JavaScript.
+
+- **Media Files Configuration:**
+  - `MEDIA_URL`: URL path for serving user-uploaded files (e.g., post images).
+  - `MEDIA_ROOT`: The directory where uploaded files will be stored locally.
+
+---
+
+### **AJAX Functionality in `post_detail.html`**
+
+- The **Like** and **Dislike** buttons have been set up to trigger AJAX requests. When clicked:
+  - The count for likes or dislikes is updated dynamically on the page.
+  - The AJAX requests are handled by corresponding Django views, which update the like/dislike counts in the database.
+
+---
+
+### **Setup Instructions**
+1. Clone the repository to your local machine.
+2. Install the dependencies: `pip install -r requirements.txt`.
+3. Run migrations: `python manage.py migrate`.
+4. Start the development server: `python manage.py runserver`.
+
+---
+
+After this Go to git checkout -b main-2
