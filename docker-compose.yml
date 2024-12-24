@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: blog_user
+      POSTGRES_PASSWORD: secure_password
+      POSTGRES_DB: blog_database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - blog_network
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:6.2
+    container_name: redis
+    networks:
+      - blog_network
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    container_name: celery_worker
+    command: celery -A blog_project worker --loglevel=info
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - db
+    networks:
+      - blog_network
+
+  web:
+    build:
+      context: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - blog_network
+
+volumes:
+  postgres_data:
+
+networks:
+  blog_network:
+    driver: bridge
